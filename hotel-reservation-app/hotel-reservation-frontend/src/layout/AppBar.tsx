@@ -7,9 +7,11 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import AppBar from "@mui/material/AppBar";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { Home } from "@mui/icons-material";
+import { Home, Logout } from "@mui/icons-material";
 import { Button, Icon } from "@mui/material";
 import { UserContext } from "../contexts/user";
+import Cookies from "js-cookie";
+Logout
 
 function UserMenu() {
   const user = React.useContext(UserContext);
@@ -48,11 +50,13 @@ function UserMenu() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={() => (window.location.pathname = "/reservations")}>
-          <Button style={{ textTransform: "none" }}>
-            <Typography textAlign="center">My Reservations</Typography>
-          </Button>
-        </MenuItem>
+        <MenuItem
+onClick={() => {
+sessionStorage.removeItem("userInfo");
+window.location.href =
+`/auth/logout?session_hint=${Cookies.get('session_hint')}`;
+}}
+></MenuItem>
         <MenuItem>
           <Button style={{ textTransform: "none" }}>
             <Typography textAlign="center">Logout</Typography>
